@@ -69,5 +69,28 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }
 
+    function undraw() {
+        current.forEach(index => {
+            squares[currentPosition + index].classList.remove('buildingblock')
+        })
+    }
+
+
+//moving the building blocks down 
+timerId = setInterval(moveDown, 1000)
+
+
+// move down function 
+function moveDown() {
+    undraw()
+    currentPosition += width
     draw()
+}
+
+//freeze fucntion to stop the building blocks on page
+
+
+
+
+
 })
