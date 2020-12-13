@@ -55,7 +55,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let currentPosition = 4 
     let currentRotation = 0 
-    let current = theBuildingblocks[0][0]
+   
+
+    // random selection of building block 
+    let random = Math.floor(Math.random()*theBuildingblocks.length)
+  
+    let current = theBuildingblocks[random][0]
 
     //drawing the building block
     function draw() {
