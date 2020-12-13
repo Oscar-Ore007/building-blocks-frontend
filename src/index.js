@@ -55,5 +55,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let currentPosition = 4 
     let currentRotation = 0 
-    console.log(theBuildingblocks[0][0])
+    let current = theBuildingblocks[0][0]
+
+    //drawing the building block
+    function draw() {
+        current.forEach(index => {
+            squares[currentPosition + index].classList.add('buildingblock')
+        })
+    }
+
+    draw()
 })
