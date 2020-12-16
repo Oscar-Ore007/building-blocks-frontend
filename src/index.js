@@ -177,5 +177,18 @@ function displayShape() {
     })
 }
 
+//adding start and pause button 
+startBtn.addEventListener('click', () => {
+    if (timerId) {
+        clearInterval(timerId)
+        timerId = null 
+    } else {
+        draw()
+        timerId = setInterval(moveDown, 1000)
+        nextRandom = Math.floor(math.random()*theBuildingblocks.length)
+        displayShape()
+    }
+})
+
 
 })
