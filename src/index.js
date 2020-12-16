@@ -82,7 +82,7 @@ timerId = setInterval(moveDown, 1000)
 //assigning functions to keyCodes 
 function control(e) {
     if(e.keyCode === 37) {
-        moveleft()
+        moveLeft()
     } else if (e.keyCode === 38) {
         rotate()
     } else if (e.keyCode === 39) {
@@ -106,15 +106,17 @@ function freeze() {
    if(current.some(index => squares[currentPosition + index + width].classList.contains('taken'))) {
         current.forEach(index => squares[currentPosition + index].classList.add('taken'))
         //starting anew building block fall
-        random = Math.floor(Math.random() * theBuildingblocks.length)
+        random = nextRandom
+        nextRandom = Math.floor(Math.random() * theBuildingblocks.length)
         current = theBuildingblocks[random][currentRotation]
         currentPosition = 4 
         draw()
+        displayShape()
    }
 }
 
 //move the building blocks left 
-function moveleft() {
+function moveLeft() {
     undraw() 
     const isAtLeftEdge = current.some(index => (currentPosition + index) % width ===0)
 
@@ -137,7 +139,43 @@ function moveRight() {
     draw()
 }
 
+//rotate the buildingblocks
+function rotate() {
+    undraw()
+    currentRotation ++
+    if(currentRotation === current.length) {
+        currentRotation = 0
+    }
+    current = theBuildingblocks[random][currentRotation]
+    draw()
+}
 
+//show up-next buildingblocks in mini-grid display  
+const displaySquares = document.querySelectorAll('.mini-grid div')
+const displayWidth = 4
+let displayIndex = 0 
+
+
+//the buildingblocks without rotations
+const UpNextBuildingblocks = [
+    [1, displayWidth+1, displayWidth*2+1, 2],
+    [0, displayWidth, displayWidth+1, displayWidth*2+1],
+    [1,displayWidth+1, displayWidth+1, displayWidth+2],
+    [0, 1, displayWidth, displayWidth+1],
+    [1, displayWidth+1, displayWidth*2+1, displayWidth*3+1]
+]
+//display the shape in the mini-grid    
+function displayShape() {
+    displaySquares.forEach(square => {
+        square.classList.remove('buildingblock')
+        square.style.backgroundColor = ''
+    })
+    UpNextBuildingblocks[nextRandom].forEach( index => {
+        displaySquares[displayIndex + index].classList.add('buildingblock')
+        displaySquares[displayIndex + index].style.backgroundColor = colors[nextRandom]
+
+    })
+}
 
 
 })
