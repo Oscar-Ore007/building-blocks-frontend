@@ -66,12 +66,14 @@ document.addEventListener('DOMContentLoaded', () => {
     function draw() {
         current.forEach(index => {
             squares[currentPosition + index].classList.add('buildingblock')
+            squares[currentPosition + index].style.backgroundColor = colors[random]
         })
     }
 
     function undraw() {
         current.forEach(index => {
             squares[currentPosition + index].classList.remove('buildingblock')
+            squares[currentPosition + index].style.backgroundColor = ''
         })
     }
 
@@ -113,6 +115,7 @@ function freeze() {
         draw()
         displayShape()
         addScore()
+        gameOver()
    }
 }
 
@@ -139,6 +142,8 @@ function moveRight() {
     }
     draw()
 }
+
+///fix rotation of the buildingblocks at the edge
 
 //rotate the buildingblocks
 function rotate() {
@@ -209,6 +214,14 @@ function addScore() {
          squares.forEach(cell => grid.appendChild(cell))
         }
     } 
+}
+
+//game over     
+function gameOver() {
+    if(current.some(index => squares[currentPosition + index].classList.contains('taken'))) {
+        scoreDisplay.innerHTMl = 'end'
+        clearInterval(timerId)
+    }
 }
 
 
